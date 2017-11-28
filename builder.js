@@ -58,5 +58,6 @@ function buildPage() {
     buildTags()
 }
 
+entries = _.sortBy(entries, ['sort_date', 'display_date'])
 originalPageTitle = pageTitle // in case we change it to something else temporarily 
 buildPage()
