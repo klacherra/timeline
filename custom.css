@@ -1,3 +1,7 @@
 .emphasize strong {
     color: #FF0000
 }
+
+.filterbtn {
+    margin-bottom: 10px; /* buttons in the "Filters" column need space between them */
+}

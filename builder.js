@@ -1,4 +1,7 @@
 function buildContent(filter) {
+    pageTitle = originalPageTitle // set it back to its original value, in case anything was filtered
+    if(filter) pageTitle += ": " + filter;
+
     var content = "<ul>";
     for(var i=0, entry; entry=entries[i]; i++){
         var toPrint = true;
@@ -43,9 +46,9 @@ function buildTags() {
     var people = _.uniq(people);
 
     // print out the list in the "tags" column
-    var tags = "";
+    var tags = `<button type="button" class="btn btn-light filterbtn" onclick="buildContent()">Clear all filters</button><br>`;
     for(var i=0, person; person=people[i]; i++) {
-        tags += `<span onclick="buildContent('` + person + `');">` + person + `</span><br>`;
+        tags += `<button type="button" class="btn btn-light filterbtn" onclick="buildContent('` + person + `');">` + person + `</button><br>`;
     }
     document.getElementById("tags").innerHTML = tags;
 }
@@ -55,4 +58,5 @@ function buildPage() {
     buildTags()
 }
 
+originalPageTitle = pageTitle // in case we change it to something else temporarily 
 buildPage()
