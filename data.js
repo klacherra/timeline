@@ -1,7 +1,9 @@
+var pageTitle = "Lacerra Family Timeline";
+
 var entries = [
     {
         "sort_date": 1856,
-        "display_date": `1856 or 1960, February 12`,
+        "display_date": `1856 or 1860, February 12`,
         "event": `Felice "Grandpa" Lacerra born in Italy`
     },
     {
@@ -13,5 +15,11 @@ var entries = [
         "sort_date": 1878,
         "display_date": `1878, about`,
         "event": `Felice and Lucia Lacerra married in Italy`
+    },
+    {
+        "sort_date": 1879,
+        "display_date": `1879, October 27`,
+        "event": `Felice and Lucia Lacerra arrive in New York Harbor through Castle Garden coming from Italy`,
+        "emphasis": true,
     },
 ]
