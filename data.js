@@ -21,5 +21,14 @@ var entries = [
         "display_date": `1879, October 27`,
         "event": `Felice and Lucia Lacerra arrive in New York Harbor through Castle Garden coming from Italy`,
         "emphasis": true,
+        "image": {
+            "filename": "lacerra_manifest.png",
+            "width": 50,
+        },
+    },
+    {
+        "sort_date": 1879.1,
+        "display_date": `1879`,
+        "event": `Felice and Lucia Lacerra move into an apartment in Little Italy, New York at corner of Mott Street and Pell Street`
     },
 ]
