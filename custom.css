@@ -1,4 +1,5 @@
 #title {
+    padding: 25px 0 25px 0;
     font-family: 'Spectral SC', serif;
 }
 
@@ -16,7 +17,7 @@ body {
 }
 
 .contentcol {
-    max-height: calc(100% - 60px);
+    max-height: calc(100% - 110px);
     overflow-x: hidden;
 }
 
@@ -26,4 +27,5 @@ body {
 
 .caption {
     font-size: 11px;
+    padding: 10px 0 15px 0;
 }

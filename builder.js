@@ -24,8 +24,8 @@ function buildContent(filter) {
             content += `><strong>` + entry.display_date + `:</strong> ` + entry.event;
     
             if(entry.image) {
-                content += `<br><center><a href="images/` + entry.image.filename + `" target="_blank"><img class="img-fluid rounded" width="` + (entry.image.width || 100) + `%" src="images/` + entry.image.filename + `"></a>`
-                if(entry.image.caption) content += `<br><i class="caption">` + entry.image.caption + `</i>`
+                content += `<br><center class="caption"><a href="images/` + entry.image.filename + `" target="_blank"><img class="img-fluid rounded" width="` + (entry.image.width || 100) + `%" src="images/` + entry.image.filename + `"></a>`
+                if(entry.image.caption) content += `<br><i>` + entry.image.caption + `</i>`
                 content += `</center>`
             }
         }
