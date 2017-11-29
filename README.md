@@ -5,8 +5,13 @@
    1. [Vocab](#vocab)
    1. [GitHub](#github)
    1. [File structure](#file-structure)
+   1. [Uploading images](#uploading-images)
 1. [Edits and formatting](#edits-and-formatting)
+   1. [Changing headlines](#changing-headlines)
    1. [Adding an event](#adding-an-event)
+   1. [Extra fields](#extra-fields)
+      1. [Tags](#tags)
+      1. [Images](#images)
 
 ## How it works
 
@@ -45,7 +50,20 @@ The composition of the website is fairly straightforward, and should change very
 * **CNAME:** This file is particular to GitHub pages. Normally, sites using GitHub pages use a URL like `klacherra.github.io`, which is assigned automatically. This file tells GitHub we're going to be using a custom domain.
 * **images:** This is a directory; it's where images are stored.
 
+### Uploading images
+Events can be printed with an accompanying image; to pull the image into the repository, click on [the "images" directory](https://github.com/klacherra/timeline/tree/master/images), then the "Upload files" button on the right side of the page. This will take you to [the "Upload files" page](https://github.com/klacherra/timeline/upload/master/images); click on "choose your files" to select the images to upload. Adding a file to the repository is treated the same way as modifying a file, so you will need to _commit_ these new files; fill out a commit message as you would for any other change, and click "Commit changes" to pull your images into the repo.
+
+(Note: GitHub isn't really supposed to be used as a file store, and they cap repositories at somewhere around 1 gigabyte in size. If you have lots of images, or several really large ones that you don't want to resize, you'll probably want to host them elsewhere. There are lots of options to do this.)
+
+
 ## Edits and formatting
+
+### Changing headlines
+
+There are two configurable headlines that can be modified by setting variables in `data.js`:
+
+* The headline at the top of the page (which originally reads "Lacerra Family Timeline") can be overridden by changing the value of the `pageTitle` variable at the top of the `data.js` file.
+* The header in the column for the filter buttons can be rewritten by setting the `filterTitle` variable. If `filterTitle` isn't set, or is set to an empty string (`""`), then it defaults to "Filters."
 
 ### Adding an event
 Adding an event means adding it to `data.js`. In that file, you'll see a variable called `entries` being defined—this is the one we're going to be changing. `entries` is an _array_, or list, of event _objects_; we just need to add another event to the list. The formatting for each event is predictable and consistent: Each event is enclosed in curly braces (`{` and `}`), and **each event is followed by a comma**. If you forget a comma, or accidently delete one, the page will not load properly. This is weirdly important in Javascript. (As you can see, the only exception to the comma crisis is the final entry in the array.)
@@ -53,7 +71,7 @@ Adding an event means adding it to `data.js`. In that file, you'll see a variabl
 The page-building scripts expect a typical event to have (at least) three _fields_:
 
 * `sort_date`: The builder will sort all events by year. This means you can put new events anywhere you want in the file and it will still appear in chronological order, but it also means this field is particularly important when there are multiple events happening in the same year. To keep the events from appearing in an unanticipated order, just make sure their `sort_date` properties are different: For example, rather than making three events, each with a `sort_date` value of `2011`, you might make the first one `2011`, the second `2011.5`, and the third `2011.8`. It doesn't matter what numbers you use, only that they are numbers.
-* `display_date`: How you actually want the date printed on the page. If you want an event to show up at "1856" in the chronology, for example, but you want the date to be printed as "1856 or 1860, February 12," you would set `display_date` to `1856 or 1860, February 12`.
+* `display_date`: How you actually want the date printed on the page. If you want an event to show up at "1856" in the chronology, for example, but you want the date to be printed as "1856 or 1860, February 12," you would set `display_date` to `1856 or 1860, February 12`. (If you don't specify a `sort_date`, or there is more than one event with the same `sort_date`, the builder will fall back to using the `display_date` value to determine order.)
 * `event`: The description of the event. This will be printed exactly as specified.
 
 Here's an example of what that event would look like:
@@ -69,3 +87,89 @@ Here's an example of what that event would look like:
 There are several syntax notes to emphasize here: First, **all properties are followed by a comma**, with the exception of the last one in the event. As with the other commas, if you forget one of these, the page explodes. This was not my idea. In addition, `sort_date` is a number, so it **does not have any quotation marks around it**. The other fields, `display_date` and `event`, are _strings_, so **they do require quotation marks.** You can use conventional quote marks here (`"` or `'`), but it's recommended you use backticks as in the example above. This avoids the confusion that can pop up when you use regular quote marks to define the string, but then need to use quotation marks _inside_ the string as well.
 
 Your new event can go anywhere in the `events` list, though it will probably be easier to manage if you try to keep them in approximately chronological order. Again, be sure your event has a comma after it, as well as the event _before_ your new one.
+
+### Extra fields
+There are other fields that are optional but add functionality you probably want.
+
+#### Tags
+Users can filter events based on who they are about—to define which events apply to which people, we define a `people` property for the event. It's an array like the `events` variable, except each value is just another string. You can see plenty of examples already in `data.js`, but to continue with the above example, here's what it would look like to add tags to the event:
+
+```javascript
+{
+    sort_date: 1856,
+    display_date: `1856 or 1860, February 12`,
+    event: `Felice "Grandpa" Lacerra born in Italy`,
+    people: [
+        "Felice Lacerra"
+    ]
+},
+```
+
+The square brackets (`[` and `]`) indicate that `people` is an array—within these brackets, line breaks are basically included in whatever way makes them most readable; they're ignored when the computer parses the code. For example, this formatting would also work, and may be preferable:
+
+```javascript
+{
+    sort_date: 1856,
+    display_date: `1856 or 1860, February 12`,
+    event: `Felice "Grandpa" Lacerra born in Italy`,
+    people: ["Felice Lacerra"]
+},
+```
+
+To add another "tag" to this event, you would just add another item to the array, making sure to **add a comma before the new entry**:
+
+```javascript
+{
+    sort_date: 1856,
+    display_date: `1856 or 1860, February 12`,
+    event: `Felice "Grandpa" Lacerra born in Italy`,
+    people: [
+        "Felice Lacerra",
+        "Lucia Lacerra"
+    ]
+},
+```
+
+Again, the whitespace within the array is just to help humans. Either of these formats would work exactly the same way:
+
+```
+people: [
+    "Felice Lacerra", "Lucia Lacerra"
+]
+
+people: ["Felice Lacerra", "Lucia Lacerra"]
+```
+
+If you add a new tag for a person, the builder will automatically detect the change and add a button for that person in the "Filters" column of the webpage. The buttons appear in the order that the person's first tag appears in the chronology.
+
+#### Images
+Events can be accompanied by an image, which is defined within the event using a small object like this one:
+
+```javascript
+{
+    sort_date: 1879,
+    display_date: `1879, October 27`,
+    event: `Felice and Lucia Lacerra arrive in New York Harbor through Castle Garden coming from Italy`,
+    emphasis: true,
+    image: {
+        filename: "lacerra_manifest.png",
+    },
+},
+```
+
+In this example, the image called "lacerra_manifest.png" will be pulled from the repo's "images" directory and put immediately below the event described. By default, all images are displayed as the same width as the event text. This could result in impractically large images, particularly when pictures are taller than they are wide. To change this, you can add a `width` property to the `image` object, which expresses the width of the object as a percentage of the line width:
+
+```javascript
+{
+    sort_date: 1879,
+    display_date: `1879, October 27`,
+    event: `Felice and Lucia Lacerra arrive in New York Harbor through Castle Garden coming from Italy`,
+    emphasis: true,
+    image: {
+        filename: "lacerra_manifest.png",
+        width: 50,
+    },
+},
+```
+
+This would print the "lacerra_manifest.png" image as before, except its width would be 50 percent of the width of the event itself. (Also, note there are no quotation marks around the `width` property.)
