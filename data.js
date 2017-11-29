@@ -87,7 +87,12 @@ var entries = [
         event: `Matilda "Nana" Cherry (nee Pratt) born`,
         people: [
             "Matilda Cherry"
-        ]
+        ],
+        image: {
+            filename: "1900_census_pratts.png",
+            caption: `The Pratt family in the 1900 U.S. census.`,
+            width: 80,
+        },
     },
     {
         sort_date: 1899.2,
@@ -104,7 +109,12 @@ var entries = [
         people: [
             "Felice Lacerra", "Lucia Lacerra"
         ],
-        emphasis: true
+        emphasis: true,
+        image: {
+            filename: "felice_lacerra_petition.png",
+            caption: `A selection from Felice Lacerra's petition for naturalization.`,
+            width: 80,
+        },
     },
     {
         sort_date: 1900,
