@@ -1,5 +1,7 @@
 var pageTitle = "Lacerra Family Timeline";
 
+var filterTitle = "";
+
 var entries = [
     {
         sort_date: 1856,

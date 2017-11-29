@@ -28,7 +28,9 @@ function buildContent(filter) {
             }
         }
     }
-    content += "</ul>"
+    content += "</ul>";
+
+    if(filterTitle != "") document.getElementById("filter_title").innerHTML = filterTitle;
     document.getElementById("content").innerHTML = content;
     document.getElementById("title").innerHTML = pageTitle;
 }
