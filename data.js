@@ -307,7 +307,12 @@ var entries = [
         event: `George "Grandpa" Cherry worked as a Machine Operator on Lithographic for the Einson Freeman Company in Long Island City, New York`,
         people: [
             "George Cherry"
-        ]
+        ],
+        image: {
+            filename: "einson_freeman_ad.png",
+            caption: `A 1945 Einson-Freeman want ad for a machine operator.`,
+            width: 50,
+        },
     },
     {
         sort_date: 1943,
@@ -485,6 +490,11 @@ var entries = [
             "Vincent Cooney"
         ],
         emphasis: true,
+        image: {
+            filename: "scythia_berth.jpg",
+            caption: `A "berthing card" issued to a passenger, to assign them a particular bunk aboard the Scythia.`,
+            width: 50,
+        },
     },
     {
         sort_date: 1954,
