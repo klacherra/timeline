@@ -34,6 +34,7 @@ var entries = [
         emphasis: true,
         image: {
             filename: "lacerra_manifest.png",
+            caption: `Felice and Lucia Lacerra recorded aboard the RMS City of Chester`,
             width: 50,
         },
         people: [

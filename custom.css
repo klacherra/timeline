@@ -23,3 +23,7 @@ body {
 #tags {
     text-align: center;
 }
+
+.caption {
+    font-size: 11px;
+}

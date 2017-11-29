@@ -51,7 +51,7 @@ The composition of the website is fairly straightforward, and should change very
 * **images:** This is a directory; it's where images are stored.
 
 ### Uploading images
-Events can be printed with an accompanying image; to pull the image into the repository, click on [the "images" directory](https://github.com/klacherra/timeline/tree/master/images), then the "Upload files" button on the right side of the page. This will take you to [the "Upload files" page](https://github.com/klacherra/timeline/upload/master/images); click on "choose your files" to select the images to upload. Adding a file to the repository is treated the same way as modifying a file, so you will need to _commit_ these new files; fill out a commit message as you would for any other change, and click "Commit changes" to pull your images into the repo.
+Events can be printed with an accompanying image; to pull the image into the repository, click on [the "images" directory](https://github.com/klacherra/timeline/tree/master/images), then the "Upload files" button on the right side of the page. This will take you to [the "Upload files" page](https://github.com/klacherra/timeline/upload/master/images); click on "choose your files" to select the images to upload. Adding a file to the repository is treated the same way as modifying a file, so you will need to _commit_ these new files; fill out a commit message as you would for any other change, and click "Commit changes" to pull your images into the repo. See [below](#images) for instructions on how to pull these images onto the page.
 
 (Note: GitHub isn't really supposed to be used as a file store, and they cap repositories at somewhere around 1 gigabyte in size. If you have lots of images, or several really large ones that you don't want to resize, you'll probably want to host them elsewhere. There are lots of options to do this.)
 
@@ -173,3 +173,19 @@ In this example, the image called "lacerra_manifest.png" will be pulled from the
 ```
 
 This would print the "lacerra_manifest.png" image as before, except its width would be 50 percent of the width of the event itself. (Also, note there are no quotation marks around the `width` property.)
+
+You can also add a caption to images by specifying a `caption` property in the same way. The order of the properties doesn't matter, but they _do_ need to be in the correct object: Adding a `caption` property to an event won't work, it needs to be part of the `image` object.
+
+```javascript
+{
+    sort_date: 1879,
+    display_date: `1879, October 27`,
+    event: `Felice and Lucia Lacerra arrive in New York Harbor through Castle Garden coming from Italy`,
+    emphasis: true,
+    image: {
+        filename: "lacerra_manifest.png",
+        caption: `Felice and Lucia Lacerra recorded aboard the RMS City of Chester`,
+        width: 50,
+    },
+},
+```
