@@ -35,7 +35,7 @@ var entries = [
         image: {
             filename: "lacerra_manifest.png",
             width: 50,
-      },
+        },
         people: [
             "Felice Lacerra", "Lucia Lacerra"
         ]
