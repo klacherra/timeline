@@ -1,6 +1,13 @@
 # Lacerra Family Timeline
 **DEVELOPMENT GUIDE**
 
+1. [How it works](#how-it-works)
+   1. [Vocab](#vocab)
+   1. [GitHub](#github)
+   1. [File structure](#file-structure)
+1. [Edits and formatting](#edits-and-formatting)
+   1. [Adding an event](#adding-an-event)
+
 ## How it works
 
 ### Vocab
@@ -26,3 +33,39 @@ The commit message, however, could prove to be important: If you make a mistake 
 Once you have a message finished, click the green "Commit changes" button, and within moments your changes should be live online. (The option to "Commit directly to the `master` branch" is the one you want. "Branches" are basically parallel versions of the code used to propose changes without making them permanent before they've been reviewed.) If you make changes but want to get rid of them instead of saving, closing the window won't cause any damage—changes aren't recorded until they are committed.
 
 A corollary to the "descriptive commit message" recommendation is to make commits relatively small; if there are unrelated changes to be made, consider breaking them up into separate commits. For example, if you're adding a dozen events in the timeline, and also re-tagging a bunch of old events with new people, you might make separate commits for those things, to make commit messages more clear and to make it easier to pull out a particular change later without needing to reverse a bunch of unrelated things that coincidentally were done at the same time. (In real life, this will probably never, ever happen, so do whatever you want with the commits. It's just worth keeping in mind.)
+
+### File structure
+The composition of the website is fairly straightforward, and should change very little unless there are substantial modifications to the look or functionality of the site.
+
+* **index.html:** The first file loaded by the browser when someone goes to lacherra.com. It defines where to find all the other relevant files (where the Javascript is stored, where to get the style files, etc.) and provides the "skeleton" of the site. If you look at the file itself, you'll see there isn't any actual timeline data in it, only the articulation of where different sections are supposed to be in relation to each other.
+* **custom.css:** "CSS" stands for "cascading stylesheets," and for this project it's basically where we define the site-specific details of how different elements of the page should look. This file is where we set that the size of the text inside the filter buttons is supposed to be slightly smaller, for example, and that the "emphasis" items should have a red date. (Note: Almost all of the style information for the site isn't stored within the repository at all: If you look in `index.html`, you'll see that it pulls in a CSS file called `bootstrap.min.css`; this is a widely used, pre-fabricated set of styles that is used mosty for helping with layout of the page.)
+* **data.js:** This is the file you will be changing most often. This is where the events in the timeline are defined, and where the other properties of the display can be overridden. To change the main headline of the page, for example, you would change it here (with the `pageTitle` variable), not in `index.html`.
+* **builder.js:** This file, plus `data.js`, is loaded by `index.html` and is executed when the user's browser renders the page. While `data.js` defines all the timeline events, `builder.js` tells the browser how to arrange them: This file sorts all the events by year, determines the proper HTML formatting for each one, and tells the browser to display it.
+* **README.md:** The file you're reading right now.
+* **CNAME:** This file is particular to GitHub pages. Normally, sites using GitHub pages use a URL like `klacherra.github.io`, which is assigned automatically. This file tells GitHub we're going to be using a custom domain.
+* **images:** This is a directory; it's where images are stored.
+
+## Edits and formatting
+
+### Adding an event
+Adding an event means adding it to `data.js`. In that file, you'll see a variable called `entries` being defined—this is the one we're going to be changing. `entries` is an _array_, or list, of event _objects_; we just need to add another event to the list. The formatting for each event is predictable and consistent: Each event is enclosed in curly braces (`{` and `}`), and **each event is followed by a comma**. If you forget a comma, or accidently delete one, the page will not load properly. This is weirdly important in Javascript. (As you can see, the only exception to the comma crisis is the final entry in the array.)
+
+The page-building scripts expect a typical event to have (at least) three _fields_:
+
+* `sort_date`: The builder will sort all events by year. This means you can put new events anywhere you want in the file and it will still appear in chronological order, but it also means this field is particularly important when there are multiple events happening in the same year. To keep the events from appearing in an unanticipated order, just make sure their `sort_date` properties are different: For example, rather than making three events, each with a `sort_date` value of `2011`, you might make the first one `2011`, the second `2011.5`, and the third `2011.8`. It doesn't matter what numbers you use, only that they are numbers.
+* `display_date`: How you actually want the date printed on the page. If you want an event to show up at "1856" in the chronology, for example, but you want the date to be printed as "1856 or 1860, February 12," you would set `display_date` to `1856 or 1860, February 12`.
+* `event`: The description of the event. This will be printed exactly as specified.
+
+Here's an example of what that event would look like:
+
+```javascript
+{
+    sort_date: 1856,
+    display_date: `1856 or 1860, February 12`,
+    event: `Felice "Grandpa" Lacerra born in Italy`
+},
+```
+
+There are several syntax notes to emphasize here: First, **all properties are followed by a comma**, with the exception of the last one in the event. As with the other commas, if you forget one of these, the page explodes. This was not my idea. In addition, `sort_date` is a number, so it **does not have any quotation marks around it**. The other fields, `display_date` and `event`, are _strings_, so **they do require quotation marks.** You can use conventional quote marks here (`"` or `'`), but it's recommended you use backticks as in the example above. This avoids the confusion that can pop up when you use regular quote marks to define the string, but then need to use quotation marks _inside_ the string as well.
+
+Your new event can go anywhere in the `events` list, though it will probably be easier to manage if you try to keep them in approximately chronological order. Again, be sure your event has a comma after it, as well as the event _before_ your new one.
